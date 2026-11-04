@@ -3,66 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TD1 - Exercice 1 : Géolocalisation</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
-        .bloc { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        h2 { color: #333; }
-    </style>
+    <title>TD1 - Exo 1 : Géolocalisation</title>
 </head>
 <body>
 
-    <h1>Exercice 1 : Test accès Géolocalisation</h1>
+    <h1>Exercice 1 : Géolocalisation</h1>
 
-    <div class="bloc">
-        <h2>Méthode 1 : getCurrentPosition()</h2>
-        <div id="get-position">En attente des données...</div>
-    </div>
+    <h2>1. Avec getCurrentPosition()</h2>
+    <div id="res-current">Chargement...</div>
 
-    <div class="bloc">
-        <h2>Méthode 2 : watchPosition()</h2>
-        <div id="watch-position">En attente des données...</div>
-    </div>
+    <h2>2. Avec watchPosition()</h2>
+    <div id="res-watch">Chargement...</div>
 
     <script>
-        // Fonction d'affichage des données de géolocalisation
-        function afficherPosition(position, elementId) {
-            const coords = position.coords;
-            const date = new Date(position.timestamp);
+        const resCurrent = document.getElementById('res-current');
+        const resWatch = document.getElementById('res-watch');
 
-            const html = `
-                <p><strong>Latitude :</strong> ${coords.latitude} °</p>
-                <p><strong>Longitude :</strong> ${coords.longitude} °</p>
-                <p><strong>Altitude :</strong> ${coords.altitude !== null ? coords.altitude + ' m' : 'Non disponible'}</p>
-                <p><strong>Précision :</strong> ${coords.accuracy} mètres</p>
-                <p><strong>Vitesse :</strong> ${coords.speed !== null ? coords.speed + ' m/s' : 'Non disponible'}</p>
-                <p><strong>Date (Timestamp) :</strong> ${date.toLocaleString()}</p>
+        function formatData(pos) {
+            const coords = pos.coords;
+            const date = new Date(pos.timestamp);
+
+            return `
+                <ul>
+                    <li><b>Latitude :</b> ${coords.latitude}</li>
+                    <li><b>Longitude :</b> ${coords.longitude}</li>
+                    <li><b>Altitude :</b> ${coords.altitude ?? 'N/A'}</li>
+                    <li><b>Précision :</b> ${coords.accuracy} m</li>
+                    <li><b>Vitesse :</b> ${coords.speed ?? 'N/A'}</li>
+                    <li><b>Date :</b> ${date.toLocaleString()}</li>
+                </ul>
             `;
-
-            document.getElementById(elementId).innerHTML = html;
         }
 
-        // Gestion des erreurs
-        function afficherErreur(error, elementId) {
-            document.getElementById(elementId).innerHTML = `<p style="color:red;">Erreur (${error.code}) : ${error.message}</p>`;
+        function handleError(err, container) {
+            container.innerHTML = `<p style="color:red">Erreur (${err.code}): ${err.message}</p>`;
         }
 
-        // 1. Utilisation de getCurrentPosition()
-        if ("geolocation" in navigator) {
+        if ('geolocation' in navigator) {
+            // Test getCurrentPosition
             navigator.geolocation.getCurrentPosition(
-                (pos) => afficherPosition(pos, "get-position"),
-                (err) => afficherErreur(err, "get-position"),
+                pos => resCurrent.innerHTML = formatData(pos),
+                err => handleError(err, resCurrent),
                 { enableHighAccuracy: true }
             );
 
-            // 2. Utilisation de watchPosition()
+            // Test watchPosition
             navigator.geolocation.watchPosition(
-                (pos) => afficherPosition(pos, "watch-position"),
-                (err) => afficherErreur(err, "watch-position"),
+                pos => resWatch.innerHTML = formatData(pos),
+                err => handleError(err, resWatch),
                 { enableHighAccuracy: true }
             );
         } else {
-            alert("La géolocalisation n'est pas supportée par votre navigateur.");
+            alert("La géolocalisation n'est pas supportée par ce navigateur.");
         }
     </script>
 
