@@ -4,19 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R506 - Prog multimédia</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f5f7;
+            color: #1f2937;
+            max-width: 680px;
+            margin: 50px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 12px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: #111827;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            display: block;
+            padding: 10px 14px;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        a:hover {
+            background-color: #eff6ff;
+            border-color: #93c5fd;
+        }
+    </style>
 </head>
 <body>
     <h1>R506 : Prog multimédia</h1>
 
-    <h2>TD1 : Carte</h2>
-    <ul>
-        <li><a href="TD1/Exo1/index.html">Exercice 1 : Géolocalisation</a></li>
-        <li><a href="TD1/Exo2/index.html">Exercice 2 : Carte Leaflet</a></li>
-    </ul>
+    <div class="card">
+        <h2>TD1 : Carte</h2>
+        <ul>
+            <li><a href="TD1/Exo1/index.html">Exercice 1 : Géolocalisation</a></li>
+            <li><a href="TD1/Exo2/index.html">Exercice 2 : Carte Leaflet</a></li>
+        </ul>
+    </div>
 
-    <h2>TD2 : Three.js</h2>
-    <ul>
-        <li><a href="TD2/index.html">Exercice 1 : Scène 3D</a></li>
-    </ul>
+    <div class="card">
+        <h2>TD2 : Three.js</h2>
+        <ul>
+            <li><a href="TD2/index.html">Exercice 1 : Scène 3D</a></li>
+        </ul>
+    </div>
 </body>
 </html>
